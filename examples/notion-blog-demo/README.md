@@ -50,16 +50,21 @@ Before running this demo, you'll need:
 ### 1. Clone and Build
 
 ```bash
-git clone https://github.com/All-Hands-AI/agent-sdk.git
+git clone https://github.com/jamiechicago312/agent-sdk.git
 cd agent-sdk
+git checkout openhands/notion-blog-demo
 make build
 ```
 
 ### 2. Set Up Environment Variables
 
 ```bash
-# Required: LiteLLM API key for the language model
-export LITELLM_API_KEY="your-litellm-api-key"
+# Required: OpenHands API key (which is a LiteLLM proxy key)
+export LITELLM_API_KEY="your-openhands-api-key"
+
+# Alternative: Use direct provider API keys instead
+# export OPENAI_API_KEY="sk-your-openai-key"
+# export ANTHROPIC_API_KEY="sk-ant-your-anthropic-key"
 
 # The Notion MCP will handle OAuth authentication interactively
 # No additional Notion API keys needed!
@@ -146,11 +151,17 @@ The Notion MCP handles OAuth authentication automatically:
 2. Log in to your Notion account and authorize the application
 3. The MCP will store the credentials securely for future use
 
-### LiteLLM API Key
-Get your API key from the LiteLLM service:
-1. Sign up at the LiteLLM platform
-2. Generate an API key
+### OpenHands API Key (LiteLLM Proxy)
+Get your API key from OpenHands:
+1. Sign up at the OpenHands platform
+2. Generate an API key (this is a LiteLLM proxy key)
 3. Set the `LITELLM_API_KEY` environment variable
+
+### Alternative: Direct Provider API Keys
+Instead of using the OpenHands proxy, you can use direct provider keys:
+- **OpenAI**: Set `OPENAI_API_KEY` and use models like `"gpt-4"`
+- **Anthropic**: Set `ANTHROPIC_API_KEY` and use models like `"claude-3-5-sonnet-20241022"`
+- **Azure**: Set `AZURE_OPENAI_API_KEY` and use models like `"azure/your-deployment"`
 
 ## 📁 Project Structure
 
@@ -171,8 +182,9 @@ notion-blog-demo/
 ### Common Issues
 
 **"LITELLM_API_KEY not set"**
-- Make sure you've exported the environment variable
+- Make sure you've exported the environment variable with your OpenHands API key
 - Check that the key is valid and has sufficient credits
+- Alternative: Use direct provider keys (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.)
 
 **"Notion MCP connection failed"**
 - Ensure you have internet connectivity
