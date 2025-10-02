@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}} - My Notion Blog</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html">My Notion Blog</a></h1>
+            <nav>
+                <a href="../index.html">← Back to Posts</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <article class="post">
+            <header class="post-header">
+                <h1>{{TITLE}}</h1>
+                <p class="post-meta">
+                    Published on <time datetime="{{DATE}}">{{DATE_FORMATTED}}</time>
+                    {{#TAGS}}<span class="tag">{{.}}</span>{{/TAGS}}
+                </p>
+            </header>
+            
+            <div class="post-content">
+                {{CONTENT}}
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 My Notion Blog. Powered by <a href="https://github.com/All-Hands-AI/agent-sdk">OpenHands SDK</a> and <a href="https://notion.com">Notion</a>.</p>
+        </div>
+    </footer>
+    
+    <script src="../js/main.js"></script>
+</body>
+</html>
