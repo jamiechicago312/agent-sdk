@@ -12,6 +12,11 @@ Model Context Protocol (MCP) is an open standard that enables AI models to secur
 
 ## 🛠️ Integration Options
 
+**Start with these working examples:**
+- **[Basic MCP Integration](https://github.com/All-Hands-AI/agent-sdk/blob/main/examples/07_mcp_integration.py)**: Fetch MCP + Repomix MCP for web content and code analysis
+- **[OAuth MCP Integration](https://github.com/All-Hands-AI/agent-sdk/blob/main/examples/08_mcp_with_oauth.py)**: Notion MCP with OAuth authentication
+- **[All Examples Directory](https://github.com/All-Hands-AI/agent-sdk/tree/main/examples)**: Complete collection of SDK usage patterns
+
 Here are compelling ways to integrate OpenHands SDK with MCP servers for your hackathon project:
 
 ### 1. 🏢 **Enterprise Productivity Agent**
@@ -305,118 +310,64 @@ conversation.run()
 - `mcp-server-slack` - Slack workspace integration
 - `@modelcontextprotocol/server-github` - GitHub API integration
 
-## 🏆 Hackathon Prize & Judging Rubric
+## 🏆 Hackathon Prize & Judging
 
 **Prize**: $60 OpenHands Cloud Credits OR 3-Month Pro Subscription (both $60 value)
 
-To win, create a **meaningful integration** using the OpenHands Agent SDK that demonstrates depth beyond surface-level usage.
+Meet the **bare minimum requirements** below to qualify for the prize!
 
-### 📊 Judging Criteria (100 Points Total)
+### 📊 SDK Requirements
 
-#### **1. SDK Integration Depth (40 points)**
-**Excellent (35-40 pts)**: Uses multiple SDK components thoughtfully
-- ✅ Custom conversation flows with callbacks and state management
-- ✅ Multiple tool integrations (built-in + MCP + custom tools)
-- ✅ Advanced features like security analysis, context condensation, or persistence
-- ✅ Proper error handling and edge case management
+| Component | Description | Bare Minimum to Pass | Nice to Haves |
+|-----------|-------------|---------------------|---------------|
+| **Agent Setup** | Core agent configuration | Agent with LLM + at least 1 tool | Multiple tools, custom configuration |
+| **Conversation** | Basic interaction pattern | Working conversation flow | Callbacks, persistence, error handling |
+| **Tools** | Tool integration | 1 built-in tool (BashTool/FileEditorTool) | Multiple tools, custom tools |
+| **Code Quality** | Implementation standards | Code runs without errors | Clean structure, documentation, tests |
 
-**Good (25-34 pts)**: Uses several SDK features effectively
-- ✅ Basic conversation management with some customization
-- ✅ 2-3 different tool types integrated
-- ✅ Some advanced SDK features implemented
+### 📊 MCP Requirements
 
-**Basic (15-24 pts)**: Uses core SDK functionality
-- ✅ Simple conversation setup with basic tool usage
-- ✅ Demonstrates understanding of Agent/Conversation pattern
+| Component | Description | Bare Minimum to Pass | Nice to Haves |
+|-----------|-------------|---------------------|---------------|
+| **MCP Integration** | External service connection | 1 working MCP server | Multiple MCPs, OAuth + HTTP mix |
+| **Configuration** | MCP setup | Valid mcp_config with working server | Error handling, fallback strategies |
+| **Functionality** | Actual usage | MCP tools called successfully | Creative combinations, workflows |
+| **Documentation** | Setup instructions | Clear README with setup steps | Demo video, architecture explanation |
 
-**Minimal (0-14 pts)**: Surface-level SDK usage only
+### 🔧 Popular MCP Server Combinations
 
-#### **2. MCP Integration Quality (25 points)**
-**Excellent (22-25 pts)**: Sophisticated MCP usage
-- ✅ Multiple MCP servers working together
-- ✅ Handles both OAuth and HTTP-only MCPs appropriately
-- ✅ Creative combination of different MCP capabilities
-- ✅ Proper error handling for MCP failures
-
-**Good (17-21 pts)**: Solid MCP implementation
-- ✅ 2+ MCP servers integrated effectively
-- ✅ Demonstrates understanding of MCP configuration
-
-**Basic (10-16 pts)**: Basic MCP usage
-- ✅ At least one MCP server working correctly
-
-**Minimal (0-9 pts)**: No MCP integration or non-functional
-
-#### **3. Problem Solving & Creativity (20 points)**
-**Excellent (18-20 pts)**: Solves a real, compelling problem
-- ✅ Clear value proposition that judges can immediately understand
-- ✅ Creative use of AI agent capabilities
-- ✅ Addresses genuine user pain points
-
-**Good (14-17 pts)**: Addresses a recognizable problem with some creativity
-
-**Basic (10-13 pts)**: Demonstrates basic problem-solving
-
-**Minimal (0-9 pts)**: Unclear problem or solution
-
-#### **4. Technical Implementation (15 points)**
-**Excellent (13-15 pts)**: Clean, robust code
-- ✅ Well-structured, readable code
-- ✅ Proper error handling and logging
-- ✅ Good separation of concerns
-- ✅ Includes basic tests or validation
-
-**Good (10-12 pts)**: Solid implementation with minor issues
-
-**Basic (7-9 pts)**: Works but has technical debt
-
-**Minimal (0-6 pts)**: Buggy or poorly structured
-
-### 🎯 **Winning Strategy Tips**
-
-**Start with these SDK components for maximum points:**
-1. **Agent + Conversation**: Core interaction pattern
-2. **Multiple Tools**: Mix built-in tools (BashTool, FileEditorTool) with MCP tools
-3. **Callbacks**: Use conversation callbacks for logging, metrics, or custom behavior
-4. **State Management**: Implement persistence or custom state handling
-5. **Security**: Add confirmation policies or security analysis
-
-**MCP Integration Ideas for High Scores:**
-- Combine complementary MCPs (e.g., Fetch + SQLite for data pipeline)
-- Use both command-line and HTTP-based MCPs
-- Implement fallback strategies when MCPs fail
-- Create workflows that chain multiple MCP operations
-
-**Example High-Scoring Architecture:**
+**Data Pipeline**: Fetch MCP + SQLite MCP + File System MCP
 ```python
-# Multi-component integration
-agent = Agent(
-    llm=llm,
-    tools=[BashTool, FileEditorTool, CustomTool],  # Multiple tool types
-    mcp_config={"mcpServers": {...}},              # Multiple MCPs
-    security_analyzer=LLMSecurityAnalyzer(),       # Advanced feature
-)
-
-conversation = Conversation(
-    agent=agent,
-    callbacks=[custom_callback, metrics_callback], # Custom callbacks
-    persistence=True,                              # State management
-)
+mcp_config = {
+    "mcpServers": {
+        "fetch": {"command": "uvx", "args": ["mcp-server-fetch"]},
+        "sqlite": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-sqlite"]},
+        "filesystem": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem"]}
+    }
+}
 ```
 
-### 🚫 **What Won't Win**
-- Single function calls to the SDK without integration
-- Copy-pasting examples without meaningful modification  
-- Projects that don't demonstrate understanding of agent workflows
-- Solutions to non-existent problems
+**Productivity Suite**: Slack MCP + GitHub MCP + File System MCP
+```python
+mcp_config = {
+    "mcpServers": {
+        "slack": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-slack"]},
+        "github": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-github"]},
+        "filesystem": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem"]}
+    }
+}
+```
 
-### ⏰ **Submission Requirements**
-- Working code with clear setup instructions
-- Brief demo video or README showing the solution in action
-- Explanation of which SDK components you used and why
-- Link to your repository with proper documentation
-
-**Remember**: We want to see you explore OpenHands capabilities deeply enough that you'd want to use it for future projects!
+**Development Tools**: Git MCP + File System MCP + Fetch MCP
+```python
+mcp_config = {
+    "mcpServers": {
+        "git": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-git"]},
+        "filesystem": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem"]},
+        "fetch": {"command": "uvx", "args": ["mcp-server-fetch"]}
+    }
+}
+```
 
 ## 🤝 Getting Help
 
