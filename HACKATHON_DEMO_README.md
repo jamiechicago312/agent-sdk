@@ -305,6 +305,119 @@ conversation.run()
 - `mcp-server-slack` - Slack workspace integration
 - `@modelcontextprotocol/server-github` - GitHub API integration
 
+## 🏆 Hackathon Prize & Judging Rubric
+
+**Prize**: $60 OpenHands Cloud Credits OR 3-Month Pro Subscription (both $60 value)
+
+To win, create a **meaningful integration** using the OpenHands Agent SDK that demonstrates depth beyond surface-level usage.
+
+### 📊 Judging Criteria (100 Points Total)
+
+#### **1. SDK Integration Depth (40 points)**
+**Excellent (35-40 pts)**: Uses multiple SDK components thoughtfully
+- ✅ Custom conversation flows with callbacks and state management
+- ✅ Multiple tool integrations (built-in + MCP + custom tools)
+- ✅ Advanced features like security analysis, context condensation, or persistence
+- ✅ Proper error handling and edge case management
+
+**Good (25-34 pts)**: Uses several SDK features effectively
+- ✅ Basic conversation management with some customization
+- ✅ 2-3 different tool types integrated
+- ✅ Some advanced SDK features implemented
+
+**Basic (15-24 pts)**: Uses core SDK functionality
+- ✅ Simple conversation setup with basic tool usage
+- ✅ Demonstrates understanding of Agent/Conversation pattern
+
+**Minimal (0-14 pts)**: Surface-level SDK usage only
+
+#### **2. MCP Integration Quality (25 points)**
+**Excellent (22-25 pts)**: Sophisticated MCP usage
+- ✅ Multiple MCP servers working together
+- ✅ Handles both OAuth and HTTP-only MCPs appropriately
+- ✅ Creative combination of different MCP capabilities
+- ✅ Proper error handling for MCP failures
+
+**Good (17-21 pts)**: Solid MCP implementation
+- ✅ 2+ MCP servers integrated effectively
+- ✅ Demonstrates understanding of MCP configuration
+
+**Basic (10-16 pts)**: Basic MCP usage
+- ✅ At least one MCP server working correctly
+
+**Minimal (0-9 pts)**: No MCP integration or non-functional
+
+#### **3. Problem Solving & Creativity (20 points)**
+**Excellent (18-20 pts)**: Solves a real, compelling problem
+- ✅ Clear value proposition that judges can immediately understand
+- ✅ Creative use of AI agent capabilities
+- ✅ Addresses genuine user pain points
+
+**Good (14-17 pts)**: Addresses a recognizable problem with some creativity
+
+**Basic (10-13 pts)**: Demonstrates basic problem-solving
+
+**Minimal (0-9 pts)**: Unclear problem or solution
+
+#### **4. Technical Implementation (15 points)**
+**Excellent (13-15 pts)**: Clean, robust code
+- ✅ Well-structured, readable code
+- ✅ Proper error handling and logging
+- ✅ Good separation of concerns
+- ✅ Includes basic tests or validation
+
+**Good (10-12 pts)**: Solid implementation with minor issues
+
+**Basic (7-9 pts)**: Works but has technical debt
+
+**Minimal (0-6 pts)**: Buggy or poorly structured
+
+### 🎯 **Winning Strategy Tips**
+
+**Start with these SDK components for maximum points:**
+1. **Agent + Conversation**: Core interaction pattern
+2. **Multiple Tools**: Mix built-in tools (BashTool, FileEditorTool) with MCP tools
+3. **Callbacks**: Use conversation callbacks for logging, metrics, or custom behavior
+4. **State Management**: Implement persistence or custom state handling
+5. **Security**: Add confirmation policies or security analysis
+
+**MCP Integration Ideas for High Scores:**
+- Combine complementary MCPs (e.g., Fetch + SQLite for data pipeline)
+- Use both command-line and HTTP-based MCPs
+- Implement fallback strategies when MCPs fail
+- Create workflows that chain multiple MCP operations
+
+**Example High-Scoring Architecture:**
+```python
+# Multi-component integration
+agent = Agent(
+    llm=llm,
+    tools=[BashTool, FileEditorTool, CustomTool],  # Multiple tool types
+    mcp_config={"mcpServers": {...}},              # Multiple MCPs
+    security_analyzer=LLMSecurityAnalyzer(),       # Advanced feature
+)
+
+conversation = Conversation(
+    agent=agent,
+    callbacks=[custom_callback, metrics_callback], # Custom callbacks
+    persistence=True,                              # State management
+)
+```
+
+### 🚫 **What Won't Win**
+- Single function calls to the SDK without integration
+- Copy-pasting examples without meaningful modification  
+- Projects that don't demonstrate understanding of agent workflows
+- Solutions to non-existent problems
+
+### ⏰ **Submission Requirements**
+- Working code with clear setup instructions
+- Brief demo video or README showing the solution in action
+- Explanation of which SDK components you used and why
+- Link to your repository with proper documentation
+
+**Remember**: We want to see you explore OpenHands capabilities deeply enough that you'd want to use it for future projects!
+
 ## 🤝 Getting Help
 
 - **[Slack](https://all-hands.dev/joinslack)**: Join the OpenHands community for real-time help
