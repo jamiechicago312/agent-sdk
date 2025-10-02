@@ -58,6 +58,16 @@ make build
 
 ### 2. Set Up Environment Variables
 
+**Option A: Using .env file (Recommended)**
+```bash
+# Copy the example environment file
+cp .env.example .env
+
+# Edit .env and add your API key
+# LITELLM_API_KEY=your-openhands-api-key
+```
+
+**Option B: Export environment variables**
 ```bash
 # Required: OpenHands API key (which is a LiteLLM proxy key)
 export LITELLM_API_KEY="your-openhands-api-key"
@@ -65,10 +75,9 @@ export LITELLM_API_KEY="your-openhands-api-key"
 # Alternative: Use direct provider API keys instead
 # export OPENAI_API_KEY="sk-your-openai-key"
 # export ANTHROPIC_API_KEY="sk-ant-your-anthropic-key"
-
-# The Notion MCP will handle OAuth authentication interactively
-# No additional Notion API keys needed!
 ```
+
+**Note:** The Notion MCP will handle OAuth authentication interactively - no additional Notion API keys needed!
 
 ### 3. Navigate to Demo Directory
 
@@ -168,6 +177,9 @@ Instead of using the OpenHands proxy, you can use direct provider keys:
 ```
 notion-blog-demo/
 ├── notion_blog_agent.py    # Main agent script
+├── demo_without_notion.py  # Demo without Notion integration
+├── .env.example           # Environment variables template
+├── .env                   # Your API keys (create from .env.example)
 ├── templates/              # Blog templates
 │   ├── index.html         # Main page template
 │   ├── post.html          # Blog post template

@@ -20,6 +20,16 @@ from typing import Any
 
 from pydantic import SecretStr
 
+
+# Load environment variables from .env file if it exists
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:
+    # dotenv not available, environment variables should be set manually
+    pass
+
 from openhands.sdk import (
     LLM,
     Agent,
@@ -188,8 +198,13 @@ def main():
     api_key = os.getenv("LITELLM_API_KEY")
     if not api_key:
         print("❌ Error: LITELLM_API_KEY environment variable is not set.")
-        print("Please set your LiteLLM API key:")
-        print("export LITELLM_API_KEY='your-api-key-here'")
+        print("Please set your OpenHands API key in one of these ways:")
+        print("1. Create a .env file with: LITELLM_API_KEY=your-openhands-api-key")
+        print(
+            "2. Export environment variable: "
+            "export LITELLM_API_KEY='your-openhands-api-key'"
+        )
+        print("3. Use direct provider keys: OPENAI_API_KEY, ANTHROPIC_API_KEY, etc.")
         return
 
     print("🚀 Starting Notion Blog Demo")
