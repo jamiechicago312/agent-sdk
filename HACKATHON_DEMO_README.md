@@ -190,6 +190,12 @@ mcp_config = {
 }
 ```
 
+
+## 🏆 Popular MCP Server Combinations:
+- **Productivity Stack**: Slack + Notion + GitHub + Calendar
+- **Data Stack**: Database + Visualization + Reporting + Analytics
+- **Content Stack**: Browser + Image Processing + Social Media + Storage
+- **Development Stack**: GitHub + Docker + CI/CD + Monitoring
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
@@ -269,27 +275,6 @@ conversation.send_message("Your hackathon idea here!")
 conversation.run()
 ```
 
-## 🏆 Hackathon Tips
-
-### Judging Criteria (Based on typical hackathon standards):
-1. **Innovation**: How creative and novel is your MCP integration?
-2. **Technical Implementation**: Code quality and architecture
-3. **Real-world Value**: Does it solve an actual problem?
-4. **Demo Quality**: How well can you present your solution?
-
-### Winning Strategies:
-1. **Focus on a specific use case** - Don't try to integrate everything
-2. **Show real value** - Demonstrate clear benefits over existing solutions
-3. **Make it interactive** - Live demos are more impressive than slides
-4. **Handle edge cases** - Robust error handling shows professionalism
-5. **Think about scalability** - How would this work with 1000+ users?
-
-### Popular MCP Server Combinations:
-- **Productivity Stack**: Slack + Notion + GitHub + Calendar
-- **Data Stack**: Database + Visualization + Reporting + Analytics
-- **Content Stack**: Browser + Image Processing + Social Media + Storage
-- **Development Stack**: GitHub + Docker + CI/CD + Monitoring
-
 ## 📚 Resources
 
 ### Official Documentation:
@@ -314,11 +299,11 @@ conversation.run()
 
 **Prize**: $60 OpenHands Cloud Credits OR 3-Month Pro Subscription (both $60 value)
 
-Meet the **bare minimum requirements** below to qualify for the prize!
+Meet the **minimum requirements** below to qualify for the prize!
 
 ### 📊 SDK Requirements
 
-| Component | Description | Bare Minimum to Pass | Nice to Haves |
+| Component | Description | Minimum | Nice to Haves |
 |-----------|-------------|---------------------|---------------|
 | **Agent Setup** | Core agent configuration | Agent with LLM + at least 1 tool | Multiple tools, custom configuration |
 | **Conversation** | Basic interaction pattern | Working conversation flow | Callbacks, persistence, error handling |
@@ -327,47 +312,12 @@ Meet the **bare minimum requirements** below to qualify for the prize!
 
 ### 📊 MCP Requirements
 
-| Component | Description | Bare Minimum to Pass | Nice to Haves |
+| Component | Description | Minimum | Nice to Haves |
 |-----------|-------------|---------------------|---------------|
 | **MCP Integration** | External service connection | 1 working MCP server | Multiple MCPs, OAuth + HTTP mix |
 | **Configuration** | MCP setup | Valid mcp_config with working server | Error handling, fallback strategies |
 | **Functionality** | Actual usage | MCP tools called successfully | Creative combinations, workflows |
 | **Documentation** | Setup instructions | Clear README with setup steps | Demo video, architecture explanation |
-
-### 🔧 Popular MCP Server Combinations
-
-**Data Pipeline**: Fetch MCP + SQLite MCP + File System MCP
-```python
-mcp_config = {
-    "mcpServers": {
-        "fetch": {"command": "uvx", "args": ["mcp-server-fetch"]},
-        "sqlite": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-sqlite"]},
-        "filesystem": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem"]}
-    }
-}
-```
-
-**Productivity Suite**: Slack MCP + GitHub MCP + File System MCP
-```python
-mcp_config = {
-    "mcpServers": {
-        "slack": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-slack"]},
-        "github": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-github"]},
-        "filesystem": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem"]}
-    }
-}
-```
-
-**Development Tools**: Git MCP + File System MCP + Fetch MCP
-```python
-mcp_config = {
-    "mcpServers": {
-        "git": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-git"]},
-        "filesystem": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem"]},
-        "fetch": {"command": "uvx", "args": ["mcp-server-fetch"]}
-    }
-}
-```
 
 ## 🤝 Getting Help
 
