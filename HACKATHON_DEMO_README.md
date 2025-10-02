@@ -17,24 +17,27 @@ Here are compelling ways to integrate OpenHands SDK with MCP servers for your ha
 ### 1. 🏢 **Enterprise Productivity Agent**
 **Use Case**: Create an AI agent that manages your entire work environment
 **MCP Integrations**:
-- **Slack MCP**: Send messages, create channels, manage team communications
-- **Notion MCP**: Create and update documentation, manage project databases
-- **GitHub MCP**: Review code, create issues, manage repositories
-- **Google Calendar MCP**: Schedule meetings, manage time blocks
+- **[Slack MCP](https://github.com/modelcontextprotocol/servers/tree/main/src/slack)**: Send messages, create channels, manage team communications (requires bot token)
+- **[Notion MCP](https://developers.notion.com/docs/mcp)**: Create and update documentation, manage project databases (requires OAuth)
+- **[GitHub MCP](https://github.com/modelcontextprotocol/servers)**: Review code, create issues, manage repositories (requires auth for private repos)
+- **[Google Workspace MCP](https://github.com/taylorwilsdon/google_workspace_mcp)**: Comprehensive Google services including Calendar, Gmail, Docs, Sheets (requires OAuth)
+- **[Figma MCP](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server)**: Access design files and components for design-to-code workflows (requires API key)
 
 **Demo Idea**: "WorkflowGPT" - An agent that can:
 - Analyze your GitHub commits and automatically update project status in Notion
 - Schedule code review meetings based on PR activity
 - Send daily standup summaries to Slack channels
 - Create documentation from code comments
+- Generate code from Figma designs
 
 ```python
 mcp_config = {
     "mcpServers": {
-        "slack": {"command": "npx", "args": ["-y", "mcp-server-slack"]},
+        "slack": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-slack"]},
         "notion": {"url": "https://mcp.notion.com/mcp", "auth": "oauth"},
         "github": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-github"]},
-        "calendar": {"command": "npx", "args": ["-y", "mcp-server-google-calendar"]}
+        "google_workspace": {"command": "uvx", "args": ["google-workspace-mcp"]},
+        "figma": {"command": "npx", "args": ["-y", "figma-developer-mcp"]}
     }
 }
 ```
@@ -42,23 +45,25 @@ mcp_config = {
 ### 2. 🔍 **Data Intelligence Agent**
 **Use Case**: Build an agent that can analyze and act on data from multiple sources
 **MCP Integrations**:
-- **Database MCP** (PostgreSQL, MySQL, SQLite): Query and analyze data
-- **Snowflake MCP**: Enterprise data warehouse operations
-- **Firebase MCP**: Real-time database operations
-- **CSV/Excel MCP**: Process spreadsheet data
+- **[PostgreSQL MCP](https://github.com/subnetmarco/pgmcp)**: Query and analyze PostgreSQL databases (uses database credentials)
+- **[Snowflake MCP](https://github.com/Snowflake-Labs/mcp)**: Enterprise data warehouse operations with Cortex AI (uses Snowflake auth)
+- **[SQLite MCP](https://github.com/modelcontextprotocol/servers)**: Local database operations (no auth required)
+- **[Context7 MCP](https://github.com/upstash/context7)**: Up-to-date documentation and code examples (HTTP-based, no OAuth)
 
 **Demo Idea**: "DataDetective" - An agent that can:
 - Connect to your database and identify data quality issues
 - Generate automated reports and visualizations
 - Suggest database optimizations
 - Create data pipelines between different sources
+- Access up-to-date documentation for data tools
 
 ```python
 mcp_config = {
     "mcpServers": {
-        "postgres": {"command": "npx", "args": ["-y", "mcp-server-postgres"]},
-        "snowflake": {"command": "npx", "args": ["-y", "mcp-server-snowflake"]},
-        "csv": {"command": "npx", "args": ["-y", "mcp-server-csv"]}
+        "postgres": {"command": "uvx", "args": ["pgmcp"]},
+        "snowflake": {"command": "uvx", "args": ["snowflake-mcp-server"]},
+        "sqlite": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-sqlite"]},
+        "context7": {"url": "https://context7.upstash.com/mcp"}
     }
 }
 ```
@@ -66,10 +71,9 @@ mcp_config = {
 ### 3. 🌐 **Web Intelligence Agent**
 **Use Case**: Create an agent that can browse, scrape, and interact with web content
 **MCP Integrations**:
-- **Browser MCP**: Automated web browsing and interaction
-- **Fetch MCP**: HTTP requests and API interactions
-- **Puppeteer MCP**: Advanced browser automation
-- **FireCrawl MCP**: Web scraping and content extraction
+- **[Fetch MCP](https://github.com/ExactDoug/mcp-fetch)**: HTTP requests and web content fetching (no auth required)
+- **[Puppeteer MCP](https://github.com/modelcontextprotocol/servers)**: Advanced browser automation (no auth required)
+- **[Browser Use MCP](https://github.com/modelcontextprotocol/servers)**: Automated web browsing and interaction (no auth required)
 
 **Demo Idea**: "WebScout" - An agent that can:
 - Monitor competitor websites for changes
@@ -80,9 +84,9 @@ mcp_config = {
 ```python
 mcp_config = {
     "mcpServers": {
-        "browser": {"command": "npx", "args": ["-y", "mcp-server-puppeteer"]},
         "fetch": {"command": "uvx", "args": ["mcp-server-fetch"]},
-        "firecrawl": {"command": "npx", "args": ["-y", "mcp-server-firecrawl"]}
+        "puppeteer": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-puppeteer"]},
+        "browser": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-browser"]}
     }
 }
 ```
@@ -90,23 +94,22 @@ mcp_config = {
 ### 4. 🎨 **Creative Content Agent**
 **Use Case**: Build an agent that can create and manage multimedia content
 **MCP Integrations**:
-- **Blender MCP**: 3D modeling and animation
-- **GIMP MCP**: Image editing and manipulation
-- **FFmpeg MCP**: Video and audio processing
-- **Canva MCP**: Design automation
+- **[Figma MCP](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server)**: Design file access and design-to-code workflows (requires API key)
+- **[File System MCP](https://github.com/modelcontextprotocol/servers)**: File operations for content management (no auth required)
+- **[Git MCP](https://github.com/modelcontextprotocol/servers)**: Version control for creative projects (no auth required)
 
 **Demo Idea**: "ContentCreator" - An agent that can:
-- Generate social media content with custom graphics
-- Create product mockups and presentations
-- Edit videos based on text descriptions
-- Design marketing materials automatically
+- Generate code from Figma designs
+- Create and manage design system components
+- Version control design assets and code
+- Automate design-to-development workflows
 
 ```python
 mcp_config = {
     "mcpServers": {
-        "blender": {"command": "npx", "args": ["-y", "mcp-server-blender"]},
-        "gimp": {"command": "npx", "args": ["-y", "mcp-server-gimp"]},
-        "ffmpeg": {"command": "npx", "args": ["-y", "mcp-server-ffmpeg"]}
+        "figma": {"command": "npx", "args": ["-y", "figma-developer-mcp"]},
+        "filesystem": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem"]},
+        "git": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-git"]}
     }
 }
 ```
@@ -114,23 +117,22 @@ mcp_config = {
 ### 5. 🏠 **Smart Home/IoT Agent**
 **Use Case**: Create an agent that can control and monitor IoT devices
 **MCP Integrations**:
-- **Home Assistant MCP**: Smart home device control
-- **MQTT MCP**: IoT device communication
-- **Arduino MCP**: Hardware interaction
-- **Raspberry Pi MCP**: Edge computing control
+- **[Serial MCP](https://github.com/modelcontextprotocol/servers)**: Hardware communication via serial ports (no auth required)
+- **[File System MCP](https://github.com/modelcontextprotocol/servers)**: Monitor system files and logs (no auth required)
+- **[Fetch MCP](https://github.com/ExactDoug/mcp-fetch)**: HTTP requests to IoT device APIs (no auth required)
 
 **Demo Idea**: "HomeGPT" - An agent that can:
-- Monitor home security and send alerts
-- Optimize energy usage based on patterns
-- Control lighting and temperature automatically
-- Manage smart appliances and schedules
+- Monitor system logs and device status
+- Communicate with IoT devices via HTTP APIs
+- Read sensor data from serial connections
+- Automate device control based on patterns
 
 ```python
 mcp_config = {
     "mcpServers": {
-        "homeassistant": {"command": "npx", "args": ["-y", "mcp-server-homeassistant"]},
-        "mqtt": {"command": "npx", "args": ["-y", "mcp-server-mqtt"]},
-        "arduino": {"command": "npx", "args": ["-y", "mcp-server-arduino"]}
+        "serial": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-serial"]},
+        "filesystem": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem"]},
+        "fetch": {"command": "uvx", "args": ["mcp-server-fetch"]}
     }
 }
 ```
@@ -138,23 +140,22 @@ mcp_config = {
 ### 6. 💰 **Financial Intelligence Agent**
 **Use Case**: Build an agent for financial analysis and trading
 **MCP Integrations**:
-- **Trading APIs MCP**: Stock market data and trading
-- **Crypto MCP**: Cryptocurrency monitoring and trading
-- **Banking MCP**: Account management and transactions
-- **QuickBooks MCP**: Accounting and bookkeeping
+- **[Fetch MCP](https://github.com/ExactDoug/mcp-fetch)**: HTTP requests to financial APIs (no auth required for public data)
+- **[SQLite MCP](https://github.com/modelcontextprotocol/servers)**: Local financial data storage and analysis (no auth required)
+- **[File System MCP](https://github.com/modelcontextprotocol/servers)**: Process financial documents and reports (no auth required)
 
 **Demo Idea**: "FinanceGPT" - An agent that can:
-- Analyze market trends and provide investment advice
-- Monitor portfolio performance and rebalance automatically
-- Generate financial reports and tax documents
-- Detect fraudulent transactions and spending patterns
+- Fetch public market data and financial news
+- Analyze financial documents and reports
+- Store and query financial data locally
+- Generate investment analysis and reports
 
 ```python
 mcp_config = {
     "mcpServers": {
-        "trading": {"command": "npx", "args": ["-y", "mcp-server-alpaca"]},
-        "crypto": {"command": "npx", "args": ["-y", "mcp-server-coinbase"]},
-        "quickbooks": {"command": "npx", "args": ["-y", "mcp-server-quickbooks"]}
+        "fetch": {"command": "uvx", "args": ["mcp-server-fetch"]},
+        "sqlite": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-sqlite"]},
+        "filesystem": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem"]}
     }
 }
 ```
@@ -162,23 +163,24 @@ mcp_config = {
 ### 7. 🎓 **Educational Assistant Agent**
 **Use Case**: Create an agent that can help with learning and education
 **MCP Integrations**:
-- **Khan Academy MCP**: Educational content access
-- **Wikipedia MCP**: Knowledge base queries
-- **PDF MCP**: Document processing and analysis
-- **Jupyter MCP**: Interactive coding environments
+- **[Context7 MCP](https://github.com/upstash/context7)**: Up-to-date documentation and code examples (HTTP-based, no OAuth)
+- **[Fetch MCP](https://github.com/ExactDoug/mcp-fetch)**: Access educational content and APIs (no auth required)
+- **[File System MCP](https://github.com/modelcontextprotocol/servers)**: Process educational documents and materials (no auth required)
+- **[Git MCP](https://github.com/modelcontextprotocol/servers)**: Version control for educational projects (no auth required)
 
 **Demo Idea**: "TutorGPT" - An agent that can:
-- Create personalized learning plans
-- Generate quizzes and assignments
-- Provide code reviews and explanations
-- Track learning progress and suggest improvements
+- Access up-to-date documentation for any programming library
+- Fetch educational content from various sources
+- Process and analyze educational documents
+- Manage code examples and learning projects
 
 ```python
 mcp_config = {
     "mcpServers": {
-        "wikipedia": {"command": "npx", "args": ["-y", "mcp-server-wikipedia"]},
-        "pdf": {"command": "npx", "args": ["-y", "mcp-server-pdf"]},
-        "jupyter": {"command": "npx", "args": ["-y", "mcp-server-jupyter"]}
+        "context7": {"url": "https://context7.upstash.com/mcp"},
+        "fetch": {"command": "uvx", "args": ["mcp-server-fetch"]},
+        "filesystem": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem"]},
+        "git": {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-git"]}
     }
 }
 ```
@@ -194,8 +196,8 @@ mcp_config = {
 
 1. **Clone and Setup**:
 ```bash
-git clone https://github.com/jamiechicago312/agent-sdk-demo.git
-cd agent-sdk-demo
+git clone https://github.com/All-Hands-AI/agent-sdk.git
+cd agent-sdk
 make build
 ```
 
@@ -213,6 +215,8 @@ uv run python examples/07_mcp_integration.py
 # Or the OAuth example with Notion
 uv run python examples/08_mcp_with_oauth.py
 ```
+
+For more examples, check out the [examples directory](https://github.com/All-Hands-AI/agent-sdk/tree/main/examples) which contains comprehensive usage examples covering all major features.
 
 ### Creating Your Own Agent
 
@@ -291,7 +295,7 @@ conversation.run()
 ### Community Resources:
 - [Awesome MCP Servers](https://github.com/wong2/awesome-mcp-servers)
 - [MCP Examples and Tutorials](https://modelcontextprotocol.io/examples)
-- [OpenHands Community Discord](https://discord.gg/ESHStjSjD4)
+- [OpenHands Community Slack](https://all-hands.dev/joinslack)
 
 ### Example MCP Servers to Try:
 - `mcp-server-fetch` - HTTP requests and web APIs
@@ -303,10 +307,10 @@ conversation.run()
 
 ## 🤝 Getting Help
 
-- **Discord**: Join the OpenHands community for real-time help
-- **GitHub Issues**: Report bugs or request features
-- **Examples**: Check the `examples/` directory for working code
-- **Documentation**: Comprehensive guides in the main README
+- **[Slack](https://all-hands.dev/joinslack)**: Join the OpenHands community for real-time help
+- **[GitHub Issues](https://github.com/All-Hands-AI/agent-sdk/issues)**: Report bugs or request features
+- **[Examples](https://github.com/All-Hands-AI/agent-sdk/tree/main/examples)**: Check the examples directory for working code
+- **[Documentation](https://github.com/All-Hands-AI/agent-sdk/blob/main/README.md)**: Comprehensive guides in the main README
 
 ## 🎉 Ready to Build?
 
@@ -318,4 +322,4 @@ Remember: The best hackathon projects are those that work reliably and demonstra
 
 ---
 
-*This demo is part of the OpenHands Agent SDK project. For more information, see the main [README.md](./README.md).*
+*This demo is part of the OpenHands Agent SDK project. For more information, see the main [README.md](https://github.com/All-Hands-AI/agent-sdk/blob/main/README.md).*
