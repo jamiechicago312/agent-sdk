@@ -82,7 +82,8 @@ agent-sdk/
 ### Prerequisites
 
 - Python 3.12+
-- `uv` package manager (version 0.8.13+)
+- `uv` package manager (version 0.8.13+) - [Installation Guide](https://docs.astral.sh/uv/getting-started/installation/)
+- Docker (optional, for local LiteLLM proxy) - [Installation Guide](https://docs.docker.com/get-docker/)
 
 ### Setup
 
@@ -130,6 +131,50 @@ conversation = Conversation(agent=agent)
 conversation.send_message("Create a Python file that prints 'Hello, World!'")
 conversation.run()
 ```
+
+### Running LiteLLM Locally with Docker
+
+For development or when you want to run your own LiteLLM proxy server locally, you can use Docker:
+
+```bash
+# Create a LiteLLM configuration file
+cat > litellm_config.yaml << EOF
+model_list:
+  - model_name: gpt-4
+    litellm_params:
+      model: gpt-4
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: claude-3-sonnet
+    litellm_params:
+      model: anthropic/claude-3-sonnet-20240229
+      api_key: os.environ/ANTHROPIC_API_KEY
+EOF
+
+# Run LiteLLM proxy server in Docker
+docker run \
+  --name litellm-proxy \
+  -v $(pwd)/litellm_config.yaml:/app/config.yaml \
+  -e OPENAI_API_KEY=$OPENAI_API_KEY \
+  -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY \
+  -p 4000:4000 \
+  ghcr.io/berriai/litellm:main-latest \
+  --config /app/config.yaml --detailed_debug
+
+# Test the proxy
+curl http://localhost:4000/health
+```
+
+Then update your LLM configuration to use the local proxy:
+
+```python
+llm = LLM(
+    model="gpt-4",  # or any model from your config
+    base_url="http://localhost:4000",
+    api_key=SecretStr("sk-1234"),  # LiteLLM proxy key (can be any string for local)
+)
+```
+
+For more advanced LiteLLM configurations, see the [LiteLLM Documentation](https://docs.litellm.ai/).
 
 ## Core Concepts
 
