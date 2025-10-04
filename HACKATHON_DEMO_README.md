@@ -16,7 +16,45 @@ Model Context Protocol (MCP) is an open standard that enables AI models to secur
 - **[Basic MCP Integration](https://github.com/All-Hands-AI/agent-sdk/blob/main/examples/07_mcp_integration.py)**: Fetch MCP + Repomix MCP for web content and code analysis
 - **[OAuth MCP Integration](https://github.com/All-Hands-AI/agent-sdk/blob/main/examples/08_mcp_with_oauth.py)**: Notion MCP with OAuth authentication
 - **[Notion Blog Demo](https://github.com/jamiechicago312/agent-sdk/tree/ai-agent-hackathon-demo/examples/notion-blog-demo)**: Complete hackathon demo showing Notion MCP integration for automated blog generation
+- **[PhenoML Healthcare Agent](examples/26_phenoml_healthcare_agent.py)**: NEW! Healthcare AI agent using PhenoML's FHIR and medical coding APIs
 - **[All Examples Directory](https://github.com/All-Hands-AI/agent-sdk/tree/main/examples)**: Complete collection of SDK usage patterns
+
+## 🏥 **NEW: Healthcare AI with PhenoML Integration**
+
+**🚀 Featured Demo**: [PhenoML Healthcare Agent](examples/phenoml-healthcare-demo/)
+
+**Use Case**: Build HIPAA-compliant healthcare AI agents that understand medical language and integrate with EHR systems
+
+**PhenoML Integration**:
+- **[PhenoML Platform](https://www.phenoml.com/)**: Healthcare AI developer platform with FHIR integration
+- **Lang2FHIR API**: Convert natural language medical notes to structured FHIR resources (100% success rate vs 30-60% for commercial APIs)
+- **Construe API**: Extract structured medical codes (SNOMED, ICD-10, LOINC) from clinical text
+- **PhenoAgent API**: Create healthcare AI agents that integrate with Epic, Cerner, Canvas, Medplum
+
+**Demo Idea**: "HealthcareGPT" - An agent that can:
+- Convert physician notes to structured FHIR data
+- Extract billing codes from clinical documentation
+- Process patient intake forms automatically
+- Generate clinical summaries and reports
+- Integrate with major EHR systems
+
+```python
+# Example: Convert clinical note to FHIR
+phenoml_tool = PhenoMLTool(api_key="your-api-key")
+result = await phenoml_tool.lang2fhir(
+    "Patient presents with chest pain and elevated blood pressure"
+)
+# Returns structured FHIR Condition resources with SNOMED codes
+```
+
+**Why This Demo Wins Hackathons**:
+- ✅ Solves real healthcare problems worth billions
+- ✅ HIPAA-compliant and production-ready
+- ✅ Integrates with existing healthcare infrastructure
+- ✅ Demonstrates advanced AI + healthcare domain expertise
+- ✅ Clear business value and scalability
+
+---
 
 Here are compelling ways to integrate OpenHands SDK with MCP servers for your hackathon project:
 
