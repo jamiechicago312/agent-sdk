@@ -16,41 +16,45 @@ The [OpenHands Agent SDK](https://github.com/All-Hands-AI/agent-sdk) enables dev
 
 *Projects from the AI Agents Hackathon - showcasing creative uses of OpenHands SDK + MCP integration*
 
+### 🎯 Featured Project
+
+- **[Notion Blog Demo](https://github.com/jamiechicago312/agent-sdk/tree/ai-agent-hackathon-demo/examples/notion-blog-demo)** - Automated blog generation system that connects to Notion via MCP OAuth, extracts content from pages/databases, and generates a complete HTML/CSS/JS blog site. Demonstrates full workflow from content creation to web publishing. [Repository](https://github.com/jamiechicago312/agent-sdk/tree/ai-agent-hackathon-demo/examples/notion-blog-demo)
+
 ### Enterprise & Productivity
 
-- **WorkflowGPT** - An AI agent that manages your entire work environment by integrating Slack, Notion, GitHub, and Google Workspace. Automatically updates project status, schedules meetings, and generates documentation.
+- **SlackFlow Agent** - AI agent that integrates Slack, GitHub, and Google Calendar MCP servers to automate project updates, schedule meetings based on code commits, and generate team status reports.
 
-- **DataDetective** - Intelligent data analysis agent that connects to PostgreSQL, Snowflake, and SQLite databases to identify data quality issues, generate reports, and suggest optimizations.
+- **DataSync Pro** - Database intelligence agent using PostgreSQL and SQLite MCP servers to synchronize data across systems, detect inconsistencies, and generate automated reports.
 
 ### Web & Content
 
-- **WebScout** - Advanced web intelligence agent using Fetch, Puppeteer, and Browser Use MCP servers to monitor competitor websites, automate form submissions, and gather market research.
+- **WebHarvester** - Content aggregation agent using Fetch and Puppeteer MCP servers to monitor competitor websites, extract pricing data, and generate market intelligence reports.
 
-- **ContentCreator** - Creative content management agent that generates code from Figma designs, manages design systems, and automates design-to-development workflows.
+- **SEO Optimizer** - Website analysis agent that crawls sites using Browser MCP, analyzes content structure, and generates SEO improvement recommendations with automated fixes.
 
 ### Development & DevOps
 
-- **CodeReviewBot** - Automated code review agent that analyzes GitHub repositories, suggests improvements, and maintains coding standards across teams.
+- **GitFlow Assistant** - Development workflow agent integrating GitHub MCP to automate code reviews, manage pull requests, and maintain coding standards across repositories.
 
-- **DeploymentMaster** - CI/CD automation agent that manages deployment pipelines, monitors system health, and handles rollbacks automatically.
+- **Deploy Commander** - CI/CD automation agent using SSH and Docker MCP servers to manage deployment pipelines, monitor system health, and handle automated rollbacks.
 
 ### Finance & Analytics
 
-- **FinanceGPT** - Financial intelligence agent that fetches market data, analyzes financial documents, and generates investment reports using public APIs and local data storage.
+- **Market Intelligence** - Financial analysis agent using public API MCP servers to fetch market data, analyze trends, and generate investment research reports with risk assessments.
 
-- **CryptoTrader** - Cryptocurrency analysis agent that monitors market trends, executes trades, and provides portfolio management insights.
+- **Expense Tracker Pro** - Personal finance agent that connects to banking APIs via MCP to categorize transactions, track budgets, and generate spending insights.
 
 ### IoT & Smart Systems
 
-- **HomeGPT** - Smart home automation agent that controls IoT devices, monitors system logs, and automates device interactions based on usage patterns.
+- **Smart Home Hub** - Home automation agent using MQTT and Home Assistant MCP servers to control IoT devices, monitor energy usage, and automate routines based on occupancy patterns.
 
-- **SensorNet** - Industrial IoT monitoring agent that processes sensor data, detects anomalies, and triggers maintenance workflows.
+- **Industrial Monitor** - Manufacturing oversight agent that processes sensor data via MCP, detects equipment anomalies, and triggers predictive maintenance workflows.
 
 ### Education & Learning
 
-- **TutorGPT** - Educational assistant agent that accesses up-to-date documentation, processes learning materials, and manages coding projects for students.
+- **Code Mentor** - Educational assistant agent that accesses documentation via MCP, reviews student code, provides personalized feedback, and tracks learning progress across programming languages.
 
-- **SkillBuilder** - Personalized learning agent that creates custom curricula, tracks progress, and adapts content based on learning patterns.
+- **Research Assistant** - Academic support agent using web search and document MCP servers to gather research materials, summarize papers, and generate bibliographies for students.
 
 ## Community Projects
 
@@ -58,39 +62,39 @@ The [OpenHands Agent SDK](https://github.com/All-Hands-AI/agent-sdk) enables dev
 
 ### Frameworks & Libraries
 
-- **Agent Orchestrator** - Framework for managing multiple OpenHands agents in complex workflows.
-- **MCP Server Registry** - Community-maintained registry of MCP servers with usage examples.
+- **Multi-Agent Orchestrator** - Framework for coordinating multiple OpenHands agents in complex workflows with shared context and task delegation.
+- **MCP Server Toolkit** - Development toolkit for building custom MCP servers with TypeScript/Python templates and testing utilities.
 
 ### Integrations
 
-- **OpenHands + LangChain** - Bridge between OpenHands SDK and LangChain ecosystem.
-- **OpenHands + AutoGen** - Multi-agent conversation framework integration.
+- **OpenHands-LangChain Bridge** - Integration layer that allows OpenHands agents to use LangChain tools and vice versa, enabling hybrid workflows.
+- **AutoGen Connector** - Multi-agent conversation framework that orchestrates OpenHands agents alongside AutoGen agents for complex problem-solving.
 
 ## Tools & Utilities
 
 ### Development Tools
 
-- **Agent Debugger** - Visual debugging tool for OpenHands agent conversations and tool calls.
-- **MCP Server Tester** - Testing framework for validating MCP server implementations.
-- **Conversation Analyzer** - Tool for analyzing agent performance and conversation patterns.
+- **Agent Inspector** - Visual debugging tool for OpenHands agent conversations, tool calls, and MCP interactions with step-by-step execution traces.
+- **MCP Server Validator** - Testing framework for validating MCP server implementations, checking protocol compliance, and performance benchmarking.
+- **Conversation Flow Analyzer** - Tool for analyzing agent conversation patterns, identifying bottlenecks, and optimizing prompt strategies.
 
 ### Monitoring & Analytics
 
-- **Agent Metrics Dashboard** - Real-time monitoring dashboard for agent performance and costs.
-- **Usage Analytics** - Tool for tracking agent usage patterns and optimization opportunities.
+- **Agent Performance Dashboard** - Real-time monitoring dashboard for tracking agent execution times, token usage, costs, and success rates across multiple deployments.
+- **Usage Pattern Tracker** - Analytics tool for understanding agent usage patterns, identifying popular workflows, and discovering optimization opportunities.
 
 ## Educational Resources
 
 ### Tutorials & Guides
 
-- **OpenHands SDK Cookbook** - Comprehensive collection of recipes and patterns for common use cases.
-- **MCP Integration Patterns** - Best practices for integrating various MCP servers.
-- **Agent Architecture Guide** - Design patterns for building scalable agent systems.
+- **OpenHands SDK Cookbook** - Comprehensive collection of code recipes, patterns, and best practices for common agent development scenarios and MCP integrations.
+- **MCP Integration Patterns** - Detailed guide covering authentication flows, error handling, and optimization strategies for various MCP server types.
+- **Agent Architecture Guide** - Design patterns and architectural principles for building scalable, maintainable agent systems with proper separation of concerns.
 
 ### Video Content
 
-- **Agent Building Masterclass** - Video series covering advanced agent development techniques.
-- **MCP Deep Dive** - Technical deep dive into Model Context Protocol implementation.
+- **Agent Development Masterclass** - Video series covering advanced techniques for building production-ready agents, debugging strategies, and performance optimization.
+- **MCP Protocol Deep Dive** - Technical walkthrough of Model Context Protocol implementation, custom server development, and security considerations.
 
 ## Contributing
 
