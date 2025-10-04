@@ -300,13 +300,19 @@ conversation.run()
 
 ## 🏆 Hackathon Prize & Judging
 
-**Prize**: $60 OpenHands Cloud Credits OR 3-Month Pro Subscription (both $60 value)
+We now have **two exciting prize tiers** for this hackathon:
 
-Meet the **minimum requirements** below to qualify for the prize!
+### 🥇 **Grand Prize - Top 3 Teams**
+**$100 Gift Card** (Amazon or Newegg) for **three lucky teams** who demonstrate exceptional, above-and-beyond SDK/MCP integrations! These teams will showcase innovative use cases, creative combinations of multiple MCP servers, and outstanding implementation quality.
 
-### 🌟 New Requirement: Awesome List Submission
+### 🥈 **Participation Prize - All Qualifying Teams**  
+**$60 OpenHands Cloud Credits OR 3-Month Pro Subscription** (both $60 value) for **anyone who meets the minimum requirements** below.
 
-**All hackathon projects must be added to our [Awesome OpenHands Agent SDK Projects](./awesome-list.md) list to qualify for the prize!**
+Meet the **minimum requirements** below to qualify for the participation prize, and go above and beyond for a chance at the grand prize!
+
+### 🌟 Required: Awesome List Submission
+
+**All hackathon projects must be added to our [Awesome OpenHands Agent SDK Projects](./awesome-list.md) list to qualify for any prize tier!**
 
 This helps showcase the amazing work from our community and makes it easier for others to discover and learn from your project. See the [Contributing section](./awesome-list.md#contributing) in the awesome list for submission guidelines.
 
@@ -328,6 +334,18 @@ This helps showcase the amazing work from our community and makes it easier for 
 | **Functionality** | Actual usage | MCP tools called successfully | Creative combinations, workflows |
 | **Documentation** | Setup instructions | Clear README with setup steps | Demo video, architecture explanation |
 | **Awesome List** | Community showcase | Project added to [awesome-list.md](./awesome-list.md) | Detailed description, demo links |
+
+### 🏅 Grand Prize Judging Criteria
+
+The **top 3 teams** will be selected based on exceptional implementation that goes above and beyond the minimum requirements. While we don't have an exact rubric, OpenHands will help determine winners based on:
+
+- **Innovation**: Creative and unique use cases that showcase the power of SDK + MCP integration
+- **Technical Excellence**: Multiple MCP servers, complex workflows, robust error handling
+- **Real-World Value**: Solutions that solve actual problems and demonstrate clear utility
+- **Implementation Quality**: Clean code, comprehensive documentation, and reliable functionality
+- **Community Impact**: Projects that inspire others and contribute meaningfully to the ecosystem
+
+*The judging process will be collaborative with the OpenHands team to ensure fair evaluation.*
 
 ## 🤝 Getting Help
 
