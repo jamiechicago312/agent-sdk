@@ -303,10 +303,10 @@ conversation.run()
 We now have **two exciting prize tiers** for this hackathon:
 
 ### 🥇 **Grand Prize - Top 3 Teams**
-**$100 Gift Card** (Amazon or Newegg) for **three lucky teams** who demonstrate exceptional, above-and-beyond SDK/MCP integrations! These teams will showcase innovative use cases, creative combinations of multiple MCP servers, and outstanding implementation quality.
+**$100 Gift Card** (Amazon or Newegg) for **three lucky teams** who demonstrate exceptional, above-and-beyond SDK/MCP integrations! These teams will showcase innovative use cases, creative combinations of multiple MCP servers, and outstanding implementation quality. Meet and exceed all the requirements of Prize 2. Must add project to awesome list.
 
 ### 🥈 **Participation Prize - All Qualifying Teams**  
-**$60 OpenHands Cloud Credits OR 3-Month Pro Subscription** (both $60 value) for **anyone who meets the minimum requirements** below.
+**$60 OpenHands Cloud Credits OR 3-Month Pro Subscription** (both $60 value) for **anyone who meets the minimum requirements** below & adds their project to the awesome list.
 
 Meet the **minimum requirements** below to qualify for the participation prize, and go above and beyond for a chance at the grand prize!
 
