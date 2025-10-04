@@ -23,6 +23,7 @@ dev = [
     "pyinstaller>=6.16.0",
     "streamlit>=1.49.1",
     "pytest-timeout>=2.4.0",
+    "qrcode[pil]>=8.2",
 ]
 
 # Ruff configuration
