@@ -283,6 +283,7 @@ conversation.run()
 - [MCP Server Registry](https://github.com/modelcontextprotocol/servers)
 
 ### Community Resources:
+- [Awesome OpenHands Agent SDK Projects](./awesome-list.md) - Showcase of hackathon and community projects
 - [Awesome MCP Servers](https://github.com/wong2/awesome-mcp-servers)
 - [MCP Examples and Tutorials](https://modelcontextprotocol.io/examples)
 - [OpenHands Community Slack](https://all-hands.dev/joinslack)
@@ -301,6 +302,12 @@ conversation.run()
 
 Meet the **minimum requirements** below to qualify for the prize!
 
+### 🌟 New Requirement: Awesome List Submission
+
+**All hackathon projects must be added to our [Awesome OpenHands Agent SDK Projects](./awesome-list.md) list to qualify for the prize!**
+
+This helps showcase the amazing work from our community and makes it easier for others to discover and learn from your project. See the [Contributing section](./awesome-list.md#contributing) in the awesome list for submission guidelines.
+
 ### 📊 SDK Requirements
 
 | Component | Description | Minimum | Nice to Haves |
@@ -318,6 +325,7 @@ Meet the **minimum requirements** below to qualify for the prize!
 | **Configuration** | MCP setup | Valid mcp_config with working server | Error handling, fallback strategies |
 | **Functionality** | Actual usage | MCP tools called successfully | Creative combinations, workflows |
 | **Documentation** | Setup instructions | Clear README with setup steps | Demo video, architecture explanation |
+| **Awesome List** | Community showcase | Project added to [awesome-list.md](./awesome-list.md) | Detailed description, demo links |
 
 ## 🤝 Getting Help
 
