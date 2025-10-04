@@ -12,7 +12,12 @@ if TYPE_CHECKING:
 from rich.text import Text
 
 from openhands.sdk.llm import ImageContent, TextContent
-from openhands.sdk.tool import ActionBase, ObservationBase, Tool, ToolAnnotations
+from openhands.sdk.tool import (
+    Action,
+    Observation,
+    ToolAnnotations,
+    ToolDefinition,
+)
 from openhands.sdk.utils import maybe_truncate
 from openhands.tools.execute_bash.constants import (
     MAX_CMD_OUTPUT_SIZE,
@@ -21,7 +26,7 @@ from openhands.tools.execute_bash.constants import (
 from openhands.tools.execute_bash.metadata import CmdOutputMetadata
 
 
-class ExecuteBashAction(ActionBase):
+class ExecuteBashAction(Action):
     """Schema for bash command execution."""
 
     command: str = Field(
@@ -71,7 +76,7 @@ class ExecuteBashAction(ActionBase):
         return content
 
 
-class ExecuteBashObservation(ObservationBase):
+class ExecuteBashObservation(Observation):
     """A ToolResult that can be rendered as a CLI output."""
 
     output: str = Field(description="The raw output from the tool.")
@@ -101,7 +106,7 @@ class ExecuteBashObservation(ObservationBase):
         return self.metadata.pid
 
     @property
-    def agent_observation(self) -> Sequence[TextContent | ImageContent]:
+    def to_llm_content(self) -> Sequence[TextContent | ImageContent]:
         ret = f"{self.metadata.prefix}{self.output}{self.metadata.suffix}"
         if self.metadata.working_dir:
             ret += f"\n[Current working directory: {self.metadata.working_dir}]"
@@ -212,7 +217,7 @@ TOOL_DESCRIPTION = """Execute a bash command in the terminal within a persistent
 """  # noqa
 
 
-execute_bash_tool = Tool(
+execute_bash_tool = ToolDefinition(
     name="execute_bash",
     action_type=ExecuteBashAction,
     observation_type=ExecuteBashObservation,
@@ -227,8 +232,8 @@ execute_bash_tool = Tool(
 )
 
 
-class BashTool(Tool[ExecuteBashAction, ExecuteBashObservation]):
-    """A Tool subclass that automatically initializes a BashExecutor with auto-detection."""  # noqa: E501
+class BashTool(ToolDefinition[ExecuteBashAction, ExecuteBashObservation]):
+    """A ToolDefinition subclass that automatically initializes a BashExecutor with auto-detection."""  # noqa: E501
 
     @classmethod
     def create(
@@ -277,7 +282,7 @@ class BashTool(Tool[ExecuteBashAction, ExecuteBashObservation]):
             env_masker=env_masker,
         )
 
-        # Initialize the parent Tool with the executor
+        # Initialize the parent ToolDefinition with the executor
         return [
             cls(
                 name=execute_bash_tool.name,

@@ -16,7 +16,11 @@ from openhands.sdk.conversation.secrets_manager import SecretValue
 from openhands.sdk.conversation.state import AgentExecutionStatus
 from openhands.sdk.conversation.types import ConversationCallbackType, ConversationID
 from openhands.sdk.conversation.visualizer import create_default_visualizer
-from openhands.sdk.event.base import EventBase
+from openhands.sdk.event.base import Event
+from openhands.sdk.event.conversation_state import (
+    FULL_STATE_KEY,
+    ConversationStateUpdateEvent,
+)
 from openhands.sdk.llm import Message, TextContent
 from openhands.sdk.logger import get_logger
 from openhands.sdk.security.confirmation_policy import (
@@ -88,7 +92,7 @@ class WebSocketCallbackClient:
                         if self._stop.is_set():
                             break
                         try:
-                            event = EventBase.model_validate(json.loads(message))
+                            event = Event.model_validate(json.loads(message))
                             self.callback(event)
                         except Exception:
                             logger.exception(
@@ -112,7 +116,7 @@ class RemoteEventsList(EventsListBase):
     def __init__(self, client: httpx.Client, conversation_id: str):
         self._client = client
         self._conversation_id = conversation_id
-        self._cached_events: list[EventBase] = []
+        self._cached_events: list[Event] = []
         self._cached_event_ids: set[str] = set()
         self._lock = threading.RLock()
         # Initial fetch to sync existing events
@@ -137,7 +141,7 @@ class RemoteEventsList(EventsListBase):
             resp.raise_for_status()
             data = resp.json()
 
-            events.extend([EventBase.model_validate(item) for item in data["items"]])
+            events.extend([Event.model_validate(item) for item in data["items"]])
 
             if not data.get("next_page_id"):
                 break
@@ -147,7 +151,7 @@ class RemoteEventsList(EventsListBase):
         self._cached_event_ids.update(e.id for e in events)
         logger.debug(f"Full sync completed, {len(events)} events cached")
 
-    def add_event(self, event: EventBase) -> None:
+    def add_event(self, event: Event) -> None:
         """Add a new event to the local cache (called by WebSocket callback)."""
         with self._lock:
             # Check if event already exists to avoid duplicates
@@ -156,14 +160,14 @@ class RemoteEventsList(EventsListBase):
                 self._cached_event_ids.add(event.id)
                 logger.debug(f"Added event {event.id} to local cache")
 
-    def append(self, event: EventBase) -> None:
+    def append(self, event: Event) -> None:
         """Add a new event to the list (for compatibility with EventLog interface)."""
         self.add_event(event)
 
     def create_default_callback(self) -> ConversationCallbackType:
         """Create a default callback that adds events to this list."""
 
-        def callback(event: EventBase) -> None:
+        def callback(event: Event) -> None:
             self.add_event(event)
 
         return callback
@@ -172,12 +176,12 @@ class RemoteEventsList(EventsListBase):
         return len(self._cached_events)
 
     @overload
-    def __getitem__(self, index: int) -> EventBase: ...
+    def __getitem__(self, index: int) -> Event: ...
 
     @overload
-    def __getitem__(self, index: slice) -> list[EventBase]: ...
+    def __getitem__(self, index: slice) -> list[Event]: ...
 
-    def __getitem__(self, index: SupportsIndex | slice) -> EventBase | list[EventBase]:
+    def __getitem__(self, index: SupportsIndex | slice) -> Event | list[Event]:
         with self._lock:
             return self._cached_events[index]
 
@@ -189,18 +193,52 @@ class RemoteEventsList(EventsListBase):
 class RemoteState(ConversationStateProtocol):
     """A state-like interface for accessing remote conversation state."""
 
-    # TODO: We can also optimize remote state by sending back
-    # updates via WebSocket
     def __init__(self, client: httpx.Client, conversation_id: str):
         self._client = client
         self._conversation_id = conversation_id
         self._events = RemoteEventsList(client, conversation_id)
 
+        # Cache for state information to avoid REST calls
+        self._cached_state: dict | None = None
+        self._lock = threading.RLock()
+
     def _get_conversation_info(self) -> dict:
         """Fetch the latest conversation info from the remote API."""
-        resp = self._client.get(f"/api/conversations/{self._conversation_id}")
-        resp.raise_for_status()
-        return resp.json()
+        with self._lock:
+            # Return cached state if available
+            if self._cached_state is not None:
+                return self._cached_state
+
+            # Fallback to REST API if no cached state
+            resp = self._client.get(f"/api/conversations/{self._conversation_id}")
+            resp.raise_for_status()
+            state = resp.json()
+            self._cached_state = state
+            return state
+
+    def update_state_from_event(self, event: ConversationStateUpdateEvent) -> None:
+        """Update cached state from a ConversationStateUpdateEvent."""
+        with self._lock:
+            # Handle full state snapshot
+            if event.key == FULL_STATE_KEY:
+                # Update cached state with the full snapshot
+                if self._cached_state is None:
+                    self._cached_state = {}
+                self._cached_state.update(event.value)
+            else:
+                # Handle individual field updates
+                if self._cached_state is None:
+                    self._cached_state = {}
+                self._cached_state[event.key] = event.value
+
+    def create_state_update_callback(self) -> ConversationCallbackType:
+        """Create a callback that updates state from ConversationStateUpdateEvent."""
+
+        def callback(event: Event) -> None:
+            if isinstance(event, ConversationStateUpdateEvent):
+                self.update_state_from_event(event)
+
+        return callback
 
     @property
     def events(self) -> RemoteEventsList:
@@ -308,6 +346,7 @@ class RemoteConversation(BaseConversation):
         max_iteration_per_run: int = 500,
         stuck_detection: bool = True,
         visualize: bool = False,
+        secrets: dict[str, str] | None = None,
         **_: object,
     ) -> None:
         """Remote conversation proxy that talks to an agent server.
@@ -340,7 +379,7 @@ class RemoteConversation(BaseConversation):
                 "stuck_detection": stuck_detection,
                 "workspace": self.workspace.model_dump(),
             }
-            resp = self._client.post("/api/conversations/", json=payload)
+            resp = self._client.post("/api/conversations", json=payload)
             resp.raise_for_status()
             data = resp.json()
             # Expect a ConversationInfo
@@ -364,6 +403,10 @@ class RemoteConversation(BaseConversation):
         default_callback = self._state.events.create_default_callback()
         self._callbacks.append(default_callback)
 
+        # Add callback to update state from websocket events
+        state_update_callback = self._state.create_state_update_callback()
+        self._callbacks.append(state_update_callback)
+
         # Add default visualizer callback if requested
         if visualize:
             self._visualizer = create_default_visualizer()
@@ -382,6 +425,12 @@ class RemoteConversation(BaseConversation):
             api_key=self.workspace.api_key,
         )
         self._ws_client.start()
+
+        # Initialize secrets if provided
+        if secrets:
+            # Convert dict[str, str] to dict[str, SecretValue]
+            secret_values: dict[str, SecretValue] = {k: v for k, v in secrets.items()}
+            self.update_secrets(secret_values)
 
     @property
     def id(self) -> ConversationID:
@@ -419,7 +468,7 @@ class RemoteConversation(BaseConversation):
             "content": [c.model_dump() for c in message.content],
             "run": False,  # Mirror local semantics; explicit run() must be called
         }
-        resp = self._client.post(f"/api/conversations/{self._id}/events/", json=payload)
+        resp = self._client.post(f"/api/conversations/{self._id}/events", json=payload)
         resp.raise_for_status()
 
     def run(self) -> None:

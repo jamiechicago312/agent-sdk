@@ -12,7 +12,7 @@ from openhands.sdk import (
     LLM,
     Agent,
     Conversation,
-    EventBase,
+    Event,
     ImageContent,
     LLMConvertibleEvent,
     Message,
@@ -20,7 +20,7 @@ from openhands.sdk import (
     get_logger,
 )
 from openhands.sdk.tool.registry import register_tool
-from openhands.sdk.tool.spec import ToolSpec
+from openhands.sdk.tool.spec import Tool
 from openhands.tools.execute_bash import BashTool
 from openhands.tools.str_replace_editor import FileEditorTool
 from openhands.tools.task_tracker import TaskTrackerTool
@@ -47,18 +47,18 @@ register_tool("TaskTrackerTool", TaskTrackerTool)
 agent = Agent(
     llm=llm,
     tools=[
-        ToolSpec(
+        Tool(
             name="BashTool",
         ),
-        ToolSpec(name="FileEditorTool"),
-        ToolSpec(name="TaskTrackerTool"),
+        Tool(name="FileEditorTool"),
+        Tool(name="TaskTrackerTool"),
     ],
 )
 
 llm_messages = []  # collect raw LLM messages for inspection
 
 
-def conversation_callback(event: EventBase) -> None:
+def conversation_callback(event: Event) -> None:
     if isinstance(event, LLMConvertibleEvent):
         llm_messages.append(event.to_llm_message())
 

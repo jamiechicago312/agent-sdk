@@ -17,15 +17,12 @@ class RemoteWorkspace(BaseWorkspace):
 
     host: str = Field(description="The remote host URL for the workspace.")
     api_key: str | None = Field(
-        description="API key for authenticating with the remote host."
+        default=None, description="API key for authenticating with the remote host."
     )
 
     _client: httpx.Client = PrivateAttr()
 
     def model_post_init(self, context: Any) -> None:
-        if not Path(self.working_dir).exists():
-            Path(self.working_dir).mkdir(parents=True, exist_ok=True)
-
         # Set up remote host and API key
         self.host = self.host.rstrip("/")
         self.api_key = self.api_key

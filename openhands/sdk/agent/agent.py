@@ -19,15 +19,17 @@ from openhands.sdk.event import (
 from openhands.sdk.event.condenser import Condensation, CondensationRequest
 from openhands.sdk.llm import (
     Message,
+    RedactedThinkingBlock,
     TextContent,
+    ThinkingBlock,
 )
 from openhands.sdk.logger import get_logger
 from openhands.sdk.security.confirmation_policy import NeverConfirm
 from openhands.sdk.security.llm_analyzer import LLMSecurityAnalyzer
 from openhands.sdk.tool import (
-    ActionBase,
+    Action,
     FinishTool,
-    ObservationBase,
+    Observation,
 )
 from openhands.sdk.tool.builtins import FinishAction
 
@@ -235,6 +237,8 @@ class Agent(AgentBase):
                     else [],  # Only first gets thought
                     # Only first gets reasoning content
                     reasoning_content=message.reasoning_content if i == 0 else None,
+                    # Only first gets thinking blocks
+                    thinking_blocks=list(message.thinking_blocks) if i == 0 else [],
                 )
                 if action_event is None:
                     continue
@@ -304,6 +308,7 @@ class Agent(AgentBase):
         on_event: ConversationCallbackType,
         thought: list[TextContent] = [],
         reasoning_content: str | None = None,
+        thinking_blocks: list[ThinkingBlock | RedactedThinkingBlock] = [],
     ) -> ActionEvent | None:
         """Converts a tool call into an ActionEvent, validating arguments.
 
@@ -348,7 +353,7 @@ class Agent(AgentBase):
 
             # Arguments we passed in should not contains `security_risk`
             # as a field
-            action: ActionBase = tool.action_from_arguments(arguments)
+            action: Action = tool.action_from_arguments(arguments)
         except (json.JSONDecodeError, ValidationError) as e:
             err = (
                 f"Error validating args {tool_call.function.arguments} for tool "
@@ -366,6 +371,7 @@ class Agent(AgentBase):
             action=action,
             thought=thought,
             reasoning_content=reasoning_content,
+            thinking_blocks=thinking_blocks,
             tool_name=tool.name,
             tool_call_id=tool_call.id,
             tool_call=tool_call,
@@ -394,9 +400,9 @@ class Agent(AgentBase):
             )
 
         # Execute actions!
-        observation: ObservationBase = tool(action_event.action)
-        assert isinstance(observation, ObservationBase), (
-            f"Tool '{tool.name}' executor must return an ObservationBase"
+        observation: Observation = tool(action_event.action)
+        assert isinstance(observation, Observation), (
+            f"Tool '{tool.name}' executor must return an Observation"
         )
 
         obs_event = ObservationEvent(

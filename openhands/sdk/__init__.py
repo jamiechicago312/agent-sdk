@@ -13,7 +13,7 @@ from openhands.sdk.conversation import (
     RemoteConversation,
 )
 from openhands.sdk.conversation.conversation_stats import ConversationStats
-from openhands.sdk.event import EventBase, LLMConvertibleEvent
+from openhands.sdk.event import Event, LLMConvertibleEvent
 from openhands.sdk.event.llm_convertible import MessageEvent
 from openhands.sdk.io import FileStore, LocalFileStore
 from openhands.sdk.llm import (
@@ -21,17 +21,24 @@ from openhands.sdk.llm import (
     ImageContent,
     LLMRegistry,
     Message,
+    RedactedThinkingBlock,
     RegistryEvent,
     TextContent,
+    ThinkingBlock,
 )
 from openhands.sdk.logger import get_logger
-from openhands.sdk.mcp import MCPClient, MCPTool, MCPToolObservation, create_mcp_tools
+from openhands.sdk.mcp import (
+    MCPClient,
+    MCPToolDefinition,
+    MCPToolObservation,
+    create_mcp_tools,
+)
 from openhands.sdk.tool import (
-    ActionBase,
-    ObservationBase,
+    Action,
+    Observation,
     Tool,
     ToolBase,
-    ToolSpec,
+    ToolDefinition,
     list_registered_tools,
     register_tool,
     resolve_tool,
@@ -56,15 +63,17 @@ __all__ = [
     "Message",
     "TextContent",
     "ImageContent",
+    "ThinkingBlock",
+    "RedactedThinkingBlock",
     "Tool",
+    "ToolDefinition",
     "ToolBase",
-    "ToolSpec",
     "AgentBase",
     "Agent",
-    "ActionBase",
-    "ObservationBase",
+    "Action",
+    "Observation",
     "MCPClient",
-    "MCPTool",
+    "MCPToolDefinition",
     "MCPToolObservation",
     "MessageEvent",
     "create_mcp_tools",
@@ -74,7 +83,7 @@ __all__ = [
     "LocalConversation",
     "RemoteConversation",
     "ConversationCallbackType",
-    "EventBase",
+    "Event",
     "LLMConvertibleEvent",
     "AgentContext",
     "LLMSummarizingCondenser",

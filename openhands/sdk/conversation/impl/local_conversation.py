@@ -1,4 +1,5 @@
 import uuid
+from pathlib import Path
 
 from openhands.sdk.agent.base import AgentBase
 from openhands.sdk.conversation.base import BaseConversation
@@ -35,6 +36,7 @@ class LocalConversation(BaseConversation):
         max_iteration_per_run: int = 500,
         stuck_detection: bool = True,
         visualize: bool = True,
+        secrets: dict[str, str] | None = None,
         **_: object,
     ):
         """Initialize the conversation.
@@ -60,6 +62,8 @@ class LocalConversation(BaseConversation):
             "workspace must be a LocalWorkspace instance"
         )
         self.workspace = workspace
+        if not Path(self.workspace.working_dir).exists():
+            Path(self.workspace.working_dir).mkdir(parents=True, exist_ok=True)
 
         # Create-or-resume: factory inspects BASE_STATE to decide
         desired_id = conversation_id or uuid.uuid4()
@@ -103,6 +107,12 @@ class LocalConversation(BaseConversation):
         self.llm_registry.subscribe(self._state.stats.register_llm)
         for llm in list(self.agent.get_all_llms()):
             self.llm_registry.add(llm)
+
+        # Initialize secrets if provided
+        if secrets:
+            # Convert dict[str, str] to dict[str, SecretValue]
+            secret_values: dict[str, SecretValue] = {k: v for k, v in secrets.items()}
+            self.update_secrets(secret_values)
 
     @property
     def id(self) -> ConversationID:
