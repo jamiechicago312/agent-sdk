@@ -15,6 +15,7 @@ Model Context Protocol (MCP) is an open standard that enables AI models to secur
 **Start with these working examples:**
 - **[Basic MCP Integration](https://github.com/All-Hands-AI/agent-sdk/blob/main/examples/07_mcp_integration.py)**: Fetch MCP + Repomix MCP for web content and code analysis
 - **[OAuth MCP Integration](https://github.com/All-Hands-AI/agent-sdk/blob/main/examples/08_mcp_with_oauth.py)**: Notion MCP with OAuth authentication
+- **[Notion Blog Demo](https://github.com/jamiechicago312/agent-sdk/tree/ai-agent-hackathon-demo/examples/notion-blog-demo)**: Complete hackathon demo showing Notion MCP integration for automated blog generation
 - **[All Examples Directory](https://github.com/All-Hands-AI/agent-sdk/tree/main/examples)**: Complete collection of SDK usage patterns
 
 Here are compelling ways to integrate OpenHands SDK with MCP servers for your hackathon project:
@@ -285,6 +286,7 @@ conversation.run()
 ### Community Resources:
 - [Awesome MCP Servers](https://github.com/wong2/awesome-mcp-servers)
 - [MCP Examples and Tutorials](https://modelcontextprotocol.io/examples)
+- [Notion Blog Demo](https://github.com/jamiechicago312/agent-sdk/tree/ai-agent-hackathon-demo/examples/notion-blog-demo) - Complete hackathon example with setup guide
 - [OpenHands Community Slack](https://all-hands.dev/joinslack)
 
 ### Example MCP Servers to Try:
