@@ -343,7 +343,7 @@ The **top 3 teams** will be selected based on exceptional implementation that go
 - **Technical Excellence**: Multiple MCP servers, complex workflows, robust error handling
 - **Real-World Value**: Solutions that solve actual problems and demonstrate clear utility
 - **Implementation Quality**: Clean code, comprehensive documentation, and reliable functionality
-- **Community Impact**: Projects that inspire others and contribute meaningfully to the ecosystem
+- **Community Impact**: Projects that could inspire others and contribute meaningfully to the ecosystem
 
 *The judging process will be collaborative with the OpenHands team to ensure fair evaluation.*
 
